@@ -16,7 +16,7 @@ class ValidationPipeline(object):
 
     def process_item(self, item, spider):
         if not item["title"]:
-            raise DropItem("Missing title")
+            item["title"] = "title none"
         return item
 
 class MongoPipeline(object):
@@ -24,10 +24,8 @@ class MongoPipeline(object):
     def open_spider(self, spider):
         self.client = MongoClient("localhost", 27017)
         self.db = self.client["rekishiru"]
-        if spider.name is "root_spider":
-            self.collection = self.db["root"]
-        elif spider.name is "d1_spider":
-            self.collection = self.db["d1"]
+        self.collection = self.db["sitemap"]
+        self.collection.delete_many({})
 
     def close_spider(self, spider):
         self.client.close()

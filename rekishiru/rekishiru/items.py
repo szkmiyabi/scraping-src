@@ -7,12 +7,7 @@
 
 import scrapy
 
-
 class RekishiruItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
-
-class MySitemap(scrapy.Item):
+    depth = scrapy.Field()
     title = scrapy.Field()
     href = scrapy.Field()
